@@ -1,35 +1,34 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-from ultralytics import YOLO
-import cv2
-import tempfile
 
-# PAGE CONFIG
+# PAGE CONFIGURATION
 st.set_page_config(
     page_title="VisionIQ Analytics",
     layout="wide"
 )
 
-# DARK THEME
+# DARK THEME STYLING
 st.markdown("""
-    <style>
-    .main {
-        background-color: #0E1117;
-        color: white;
-    }
+<style>
 
-    div[data-testid="metric-container"] {
-        background-color: #1E1E1E;
-        border: 1px solid #333333;
-        padding: 20px;
-        border-radius: 12px;
-    }
+.main {
+    background-color: #0E1117;
+    color: white;
+}
 
-    h1, h2, h3 {
-        color: white;
-    }
-    </style>
+div[data-testid="metric-container"] {
+    background-color: #1E1E1E;
+    border: 1px solid #333333;
+    padding: 20px;
+    border-radius: 12px;
+}
+
+h1, h2, h3 {
+    color: white;
+}
+
+</style>
 """, unsafe_allow_html=True)
 
 # TITLE
@@ -37,131 +36,110 @@ st.title("VisionIQ Analytics")
 
 st.subheader("AI Customer Experience Intelligence Platform")
 
-# VIDEO UPLOADER
-uploaded_file = st.file_uploader(
-    "Upload Restaurant Video",
-    type=["mp4", "mov", "avi"]
+# LOAD CSV FILES
+analytics_df = pd.read_csv("analytics.csv")
+dwell_df = pd.read_csv("dwell_time.csv")
+
+# KPI CALCULATIONS
+average_crowd = analytics_df["People"].mean()
+
+peak_crowd = analytics_df["People"].max()
+
+average_dwell = dwell_df["Estimated_Dwell_Time"].mean()
+
+# KPI SECTION
+st.markdown("## Operational KPIs")
+
+col1, col2, col3 = st.columns(3)
+
+col1.metric(
+    "Average Crowd",
+    round(average_crowd, 2)
 )
 
-# PROCESS VIDEO
-if uploaded_file is not None:
+col2.metric(
+    "Peak Occupancy",
+    peak_crowd
+)
 
-    st.success("Video uploaded successfully!")
+col3.metric(
+    "Avg Dwell Time",
+    f"{round(average_dwell,2)} sec"
+)
 
-    # SAVE TEMP VIDEO
-    temp_file = tempfile.NamedTemporaryFile(delete=False)
+# CROWD TREND GRAPH
+st.markdown("---")
 
-    temp_file.write(uploaded_file.read())
+st.markdown("## Crowd Trend Analysis")
 
-    video_path = temp_file.name
+fig1, ax1 = plt.subplots(figsize=(12,5))
 
-    # LOAD YOLO MODEL
-    model = YOLO("yolov8n.pt")
+fig1.patch.set_facecolor('#0E1117')
 
-    # READ VIDEO
-    video = cv2.VideoCapture(video_path)
+ax1.set_facecolor('#1E1E1E')
 
-    frame_count = 0
+ax1.plot(
+    analytics_df["Frame"],
+    analytics_df["People"],
+    linewidth=3
+)
 
-    analytics_data = []
+ax1.set_xlabel("Frame", color='white')
 
-    # ANALYZE VIDEO
-    with st.spinner("AI is analyzing customer behavior..."):
+ax1.set_ylabel("People Count", color='white')
 
-        while True:
+ax1.tick_params(colors='white')
 
-            success, frame = video.read()
+for spine in ax1.spines.values():
+    spine.set_color('white')
 
-            if not success:
-                break
+st.pyplot(fig1)
 
-            frame_count += 1
+# DWELL TIME GRAPH
+st.markdown("---")
 
-            # Analyze every 30th frame
-            if frame_count % 30 == 0:
+st.markdown("## Customer Engagement Duration")
 
-                results = model(frame)
+fig2, ax2 = plt.subplots(figsize=(12,5))
 
-                person_count = 0
+fig2.patch.set_facecolor('#0E1117')
 
-                for result in results:
+ax2.set_facecolor('#1E1E1E')
 
-                    boxes = result.boxes
+ax2.bar(
+    dwell_df["Person_ID"].astype(str),
+    dwell_df["Estimated_Dwell_Time"]
+)
 
-                    for box in boxes:
+ax2.set_xlabel("Customer ID", color='white')
 
-                        class_id = int(box.cls[0])
+ax2.set_ylabel("Seconds", color='white')
 
-                        # Person class
-                        if class_id == 0:
-                            person_count += 1
+ax2.tick_params(colors='white')
 
-                analytics_data.append({
-                    "Frame": frame_count,
-                    "People": person_count
-                })
+for spine in ax2.spines.values():
+    spine.set_color('white')
 
-    # CREATE DATAFRAME
-    analytics_df = pd.DataFrame(analytics_data)
+st.pyplot(fig2)
 
-    # KPI CALCULATIONS
-    average_crowd = analytics_df["People"].mean()
-    peak_crowd = analytics_df["People"].max()
+# BUSINESS INSIGHTS
+st.markdown("---")
 
-    # KPI SECTION
-    st.markdown("## Operational KPIs")
+st.markdown("## AI Business Insights")
 
-    col1, col2 = st.columns(2)
+st.info(f"""
+Peak customer activity reached {peak_crowd} simultaneous visitors.
 
-    col1.metric(
-        "Average Crowd",
-        round(average_crowd,2)
-    )
+Average customer occupancy remained at {round(average_crowd,2)} visitors.
 
-    col2.metric(
-        "Peak Occupancy",
-        peak_crowd
-    )
+Engagement levels indicate moderate-to-high seating interaction.
 
-    # CROWD TREND GRAPH
-    st.markdown("---")
+Potential optimization opportunities exist around peak occupancy periods.
+""")
 
-    st.markdown("## Crowd Trend Analysis")
+# RAW DATA TABLES
+with st.expander("View Raw Analytics Data"):
+    st.dataframe(analytics_df)
 
-    fig1, ax1 = plt.subplots(figsize=(12,5))
-
-    fig1.patch.set_facecolor('#0E1117')
-    ax1.set_facecolor('#1E1E1E')
-
-    ax1.plot(
-        analytics_df["Frame"],
-        analytics_df["People"],
-        linewidth=3
-    )
-
-    ax1.set_xlabel("Frame", color='white')
-    ax1.set_ylabel("People Count", color='white')
-
-    ax1.tick_params(colors='white')
-
-    for spine in ax1.spines.values():
-        spine.set_color('white')
-
-    st.pyplot(fig1)
-
-    # BUSINESS INSIGHTS
-    st.markdown("---")
-
-    st.markdown("## AI Business Insights")
-
-    st.info(f"""
-    Peak customer activity reached {peak_crowd} simultaneous visitors.
-
-    Average customer occupancy remained at {round(average_crowd,2)} visitors.
-
-    Crowd movement patterns indicate active engagement periods.
-    """)
-
-    # RAW DATA
-    with st.expander("View Analytics Data"):
-        st.dataframe(analytics_df)
+with st.expander("View Dwell-Time Data"):
+    st.dataframe(dwell_df)
