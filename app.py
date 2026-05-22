@@ -134,17 +134,92 @@ st.image(
 # BUSINESS INSIGHTS
 st.markdown("---")
 
-st.markdown("## AI Business Insights")
+st.markdown("## AI Business Intelligence Engine")
 
-st.info(f"""
-Peak customer activity reached {peak_crowd} simultaneous visitors.
+# OCCUPANCY ANALYSIS
+if peak_crowd > 20:
+    occupancy_status = "High Occupancy"
+elif peak_crowd > 10:
+    occupancy_status = "Moderate Occupancy"
+else:
+    occupancy_status = "Low Occupancy"
 
-Average customer occupancy remained at {round(average_crowd,2)} visitors.
+# ENGAGEMENT ANALYSIS
+if average_dwell > 10:
+    engagement_status = "High Engagement"
+elif average_dwell > 5:
+    engagement_status = "Moderate Engagement"
+else:
+    engagement_status = "Low Engagement"
 
-Engagement levels indicate moderate-to-high seating interaction.
+# CROWD STABILITY
+crowd_variation = analytics_df["People"].std()
 
-Potential optimization opportunities exist around peak occupancy periods.
-""")
+if crowd_variation > 5:
+    traffic_pattern = "Dynamic Traffic Flow"
+else:
+    traffic_pattern = "Stable Traffic Flow"
+
+# AI SCORE
+ai_score = round(
+    (
+        average_crowd * 2
+        +
+        average_dwell * 3
+    ) / 5,
+    1
+)
+
+# INSIGHT CARDS
+col1, col2 = st.columns(2)
+
+with col1:
+
+    st.success(f"""
+    Occupancy Status:
+    {occupancy_status}
+
+    Traffic Pattern:
+    {traffic_pattern}
+    """)
+
+with col2:
+
+    st.info(f"""
+    Engagement Level:
+    {engagement_status}
+
+    AI Utilization Score:
+    {ai_score}/10
+    """)
+
+# OPERATIONAL RECOMMENDATIONS
+st.markdown("### Operational Recommendations")
+
+recommendations = []
+
+if peak_crowd > 20:
+    recommendations.append(
+        "Consider increasing staffing during peak periods."
+    )
+
+if average_dwell < 5:
+    recommendations.append(
+        "Low customer engagement detected. Seating experience may require optimization."
+    )
+
+if crowd_variation > 5:
+    recommendations.append(
+        "High traffic fluctuations observed near active customer zones."
+    )
+
+if len(recommendations) == 0:
+    recommendations.append(
+        "Operational metrics currently appear stable."
+    )
+
+for rec in recommendations:
+    st.warning(rec)
 
 # RAW DATA TABLES
 with st.expander("View Raw Analytics Data"):
