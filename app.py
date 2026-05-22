@@ -468,6 +468,44 @@ Highest customer activity detected in:
 
 Potential optimization opportunities may exist in lower-utilization zones.
 """)
+# VIDEO UPLOAD PANEL
+st.markdown("---")
+
+st.markdown("## AI Video Processing")
+
+uploaded_video = st.file_uploader(
+    "Upload CCTV or Restaurant Video",
+    type=["mp4", "avi", "mov"]
+)
+
+if uploaded_video is not None:
+
+    st.success("""
+Video uploaded successfully.
+
+AI processing engine initialized.
+    """)
+
+    st.info("""
+Behavioral analytics pipeline activated.
+
+Expected modules:
+
+• Crowd Analytics  
+• Heatmap Intelligence  
+• Zone Tracking  
+• Engagement Detection  
+• Operational Insights
+    """)
+
+    st.progress(85)
+
+    st.warning("""
+Demo Mode:
+
+Full live AI processing will operate
+through GPU deployment infrastructure.
+    """)
 # RAW DATA TABLES
 with st.expander("View Raw Analytics Data"):
     st.dataframe(analytics_df)
