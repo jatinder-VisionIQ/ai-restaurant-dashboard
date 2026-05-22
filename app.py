@@ -134,7 +134,7 @@ st.image(
 # BUSINESS INSIGHTS
 st.markdown("---")
 
-st.markdown("## AI Business Intelligence Engine")
+st.markdown("## Customer Activity Index")
 
 # OCCUPANCY ANALYSIS
 if peak_crowd > 20:
