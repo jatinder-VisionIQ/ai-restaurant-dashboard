@@ -218,7 +218,64 @@ if len(recommendations) == 0:
 
 for rec in recommendations:
     st.warning(rec)
+# ZONE ANALYTICS
+st.markdown("---")
 
+st.markdown("## Zone Intelligence Analysis")
+
+# LOAD ZONE DATA
+zone_df = pd.read_csv("zone_analytics.csv")
+
+# AVERAGES
+left_avg = zone_df["Left_Zone"].mean()
+center_avg = zone_df["Center_Zone"].mean()
+right_avg = zone_df["Right_Zone"].mean()
+
+# ZONE CHART
+fig3, ax3 = plt.subplots(figsize=(10,5))
+
+fig3.patch.set_facecolor('#0E1117')
+
+ax3.set_facecolor('#1E1E1E')
+
+zones = ["Left Zone", "Center Zone", "Right Zone"]
+
+values = [
+    left_avg,
+    center_avg,
+    right_avg
+]
+
+ax3.bar(zones, values)
+
+ax3.set_ylabel(
+    "Average People Count",
+    color='white'
+)
+
+ax3.tick_params(colors='white')
+
+for spine in ax3.spines.values():
+    spine.set_color('white')
+
+st.pyplot(fig3)
+
+# ZONE INSIGHTS
+highest_zone = max(values)
+
+if highest_zone == left_avg:
+    busiest_zone = "Left Zone"
+elif highest_zone == center_avg:
+    busiest_zone = "Center Zone"
+else:
+    busiest_zone = "Right Zone"
+
+st.success(f"""
+Highest customer activity detected in:
+{busiest_zone}
+
+Potential optimization opportunities may exist in lower-utilization zones.
+""")
 # RAW DATA TABLES
 with st.expander("View Raw Analytics Data"):
     st.dataframe(analytics_df)
