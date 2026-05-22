@@ -100,22 +100,54 @@ with col2:
         "AI-Powered Operational Intelligence Platform"
     )
 
-# LIVE STATUS
+# LIVE AI STATUS BAR
 st.markdown("""
 <div style="
-padding:15px;
-border-radius:10px;
+padding:18px;
+border-radius:12px;
 background: linear-gradient(
 90deg,
-#111827,
+#0F172A,
 #1E3A8A
 );
 color:white;
 font-size:18px;
 font-weight:bold;
+margin-bottom:20px;
+box-shadow:0px 0px 20px rgba(59,130,246,0.4);
 ">
-● LIVE AI ANALYTICS ENGINE ACTIVE
+
+<span style="color:#22C55E;">
+●
+</span>
+
+LIVE AI ANALYTICS ENGINE ACTIVE
+
 </div>
+""", unsafe_allow_html=True)
+
+# SCROLLING ALERT TICKER
+st.markdown("""
+<marquee
+behavior="scroll"
+direction="left"
+scrollamount="8"
+style="
+color:#60A5FA;
+font-size:16px;
+font-weight:bold;
+padding:10px;
+background-color:#111827;
+border-radius:8px;
+">
+
+AI ALERT:
+Peak activity detected in Left Zone |
+High engagement levels observed |
+Operational intelligence engine active |
+VisionIQ monitoring live spatial behavior analytics
+
+</marquee>
 """, unsafe_allow_html=True)
 
 # LOAD CSV FILES
