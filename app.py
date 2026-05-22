@@ -190,6 +190,30 @@ opportunities.
 
 </div>
 """, unsafe_allow_html=True)
+# CAMERA STATUS PANEL
+st.markdown("---")
+
+st.markdown("## Live Monitoring Infrastructure")
+
+cam1, cam2, cam3 = st.columns(3)
+
+cam1.success("""
+Camera 01
+
+STATUS: ACTIVE
+""")
+
+cam2.success("""
+Camera 02
+
+STATUS: ACTIVE
+""")
+
+cam3.warning("""
+Camera 03
+
+STATUS: STANDBY
+""")
 # KPI SECTION
 st.markdown("## Operational KPIs")
 
