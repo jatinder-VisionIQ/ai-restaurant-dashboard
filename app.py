@@ -161,15 +161,13 @@ else:
     traffic_pattern = "Stable Traffic Flow"
 
 # AI SCORE
-ai_score = round(
-    (
-        average_crowd * 2
-        +
-        average_dwell * 3
-    ) / 5,
-    1
-)
+raw_score = (
+    average_crowd * 2
+    +
+    average_dwell * 3
+) / 5
 
+ai_score = min(round(raw_score,1), 10)
 # INSIGHT CARDS
 col1, col2 = st.columns(2)
 
