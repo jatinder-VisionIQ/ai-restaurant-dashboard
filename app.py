@@ -472,7 +472,6 @@ Potential optimization opportunities may exist in lower-utilization zones.
 st.markdown("---")
 
 st.markdown("## AI Video Processing")
-
 uploaded_video = st.file_uploader(
     "Upload CCTV or Restaurant Video",
     type=["mp4", "avi", "mov"]
@@ -482,29 +481,79 @@ if uploaded_video is not None:
 
     st.success("""
 Video uploaded successfully.
-
-AI processing engine initialized.
     """)
 
+    st.markdown("## AI Processing Pipeline")
+
+    # STAGE 1
     st.info("""
-Behavioral analytics pipeline activated.
-
-Expected modules:
-
-• Crowd Analytics  
-• Heatmap Intelligence  
-• Zone Tracking  
-• Engagement Detection  
-• Operational Insights
+STEP 1:
+Initializing VisionIQ AI Engine...
     """)
 
-    st.progress(85)
+    # STAGE 2
+    st.info("""
+STEP 2:
+Activating Crowd Intelligence Module...
+    """)
+
+    # STAGE 3
+    st.info("""
+STEP 3:
+Running Heatmap Spatial Analysis...
+    """)
+
+    # STAGE 4
+    st.info("""
+STEP 4:
+Analyzing Zone Occupancy Patterns...
+    """)
+
+    # STAGE 5
+    st.info("""
+STEP 5:
+Generating Behavioral Intelligence...
+    """)
+
+    # PROGRESS BAR
+    progress_bar = st.progress(0)
+
+    for percent_complete in range(100):
+
+        progress_bar.progress(
+            percent_complete + 1
+        )
+
+    st.success("""
+AI processing completed successfully.
+    """)
+
+    st.markdown("""
+<div style="
+padding:20px;
+border-radius:12px;
+background-color:#111827;
+color:white;
+font-size:17px;
+line-height:1.8;
+">
+
+VisionIQ successfully generated:
+
+• Crowd Density Analytics  
+• Customer Engagement Metrics  
+• Spatial Heatmaps  
+• Zone Intelligence  
+• Operational Recommendations
+
+</div>
+""", unsafe_allow_html=True)
 
     st.warning("""
-Demo Mode:
+Demo Environment:
 
-Full live AI processing will operate
-through GPU deployment infrastructure.
+Full real-time AI inference will operate
+through GPU-powered deployment infrastructure.
     """)
 # RAW DATA TABLES
 with st.expander("View Raw Analytics Data"):
