@@ -27,7 +27,15 @@ div[data-testid="metric-container"] {
 h1, h2, h3 {
     color: white;
 }
+div[data-testid="metric-container"] {
+    transition: all 0.3s ease-in-out;
+}
 
+div[data-testid="metric-container"]:hover {
+    transform: scale(1.03);
+    border: 1px solid #3B82F6;
+    box-shadow: 0px 0px 15px rgba(59,130,246,0.5);
+}
 </style>
 """, unsafe_allow_html=True)
 
