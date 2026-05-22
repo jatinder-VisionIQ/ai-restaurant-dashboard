@@ -28,13 +28,32 @@ h1, h2, h3 {
     color: white;
 }
 div[data-testid="metric-container"] {
-    transition: all 0.3s ease-in-out;
+
+    background-color: #1E1E1E;
+
+    border: 1px solid #333333;
+
+    padding: 20px;
+
+    border-radius: 14px;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        border 0.3s ease;
+
 }
 
 div[data-testid="metric-container"]:hover {
-    transform: scale(1.03);
+
+    transform: translateY(-5px);
+
     border: 1px solid #3B82F6;
-    box-shadow: 0px 0px 15px rgba(59,130,246,0.5);
+
+    box-shadow:
+        0px 0px 20px rgba(59,130,246,0.6);
+
+    background-color: #252525;
 }
 </style>
 """, unsafe_allow_html=True)
