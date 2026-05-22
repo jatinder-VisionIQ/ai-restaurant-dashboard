@@ -121,7 +121,16 @@ for spine in ax2.spines.values():
     spine.set_color('white')
 
 st.pyplot(fig2)
+# HEATMAP SECTION
+st.markdown("---")
 
+st.markdown("## Customer Movement Heatmap")
+
+st.image(
+    "heatmap.png",
+    caption="AI-generated customer activity zones",
+    use_container_width=True
+)
 # BUSINESS INSIGHTS
 st.markdown("---")
 
