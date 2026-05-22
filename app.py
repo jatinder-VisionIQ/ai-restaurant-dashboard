@@ -134,7 +134,7 @@ direction="left"
 scrollamount="8"
 style="
 color:#FFFFFF;
-font-size:16px;
+font-size:17px;
 font-weight:bold;
 padding:10px;
 background-color:#111827;
