@@ -109,7 +109,36 @@ average_crowd = analytics_df["People"].mean()
 peak_crowd = analytics_df["People"].max()
 
 average_dwell = dwell_df["Estimated_Dwell_Time"].mean()
+# EXECUTIVE SUMMARY
+st.markdown("---")
 
+st.markdown("## Executive Intelligence Summary")
+
+st.markdown(f"""
+<div style="
+padding:20px;
+border-radius:12px;
+background-color:#111827;
+color:white;
+font-size:17px;
+line-height:1.8;
+">
+
+VisionIQ AI has analyzed customer movement,
+occupancy behavior, and engagement patterns
+across operational zones.
+
+Peak utilization and engagement indicators
+suggest strong customer interaction levels
+within the monitored environment.
+
+Spatial intelligence analysis detected
+high-activity concentration zones with
+potential operational optimization
+opportunities.
+
+</div>
+""", unsafe_allow_html=True)
 # KPI SECTION
 st.markdown("## Operational KPIs")
 
