@@ -31,10 +31,65 @@ h1, h2, h3 {
 </style>
 """, unsafe_allow_html=True)
 
-# TITLE
-st.title("VisionIQ Analytics")
+# SIDEBAR
+st.sidebar.image(
+    "visioniq_logo.png",
+    use_container_width=True
+)
 
-st.subheader("AI Customer Experience Intelligence Platform")
+st.sidebar.markdown("---")
+
+st.sidebar.success("System Status: ACTIVE")
+
+st.sidebar.info("""
+Live AI Modules:
+
+• Crowd Intelligence  
+• Heatmap Analytics  
+• Zone Tracking  
+• Engagement Analysis  
+• Operational Insights
+""")
+
+st.sidebar.markdown("---")
+
+st.sidebar.caption(
+    "VisionIQ Spatial Intelligence Platform"
+)
+
+# MAIN HEADER
+col1, col2 = st.columns([1,4])
+
+with col1:
+    st.image(
+        "visioniq_logo.png",
+        width=140
+    )
+
+with col2:
+    st.title("VisionIQ Analytics")
+
+    st.subheader(
+        "AI-Powered Operational Intelligence Platform"
+    )
+
+# LIVE STATUS
+st.markdown("""
+<div style="
+padding:15px;
+border-radius:10px;
+background: linear-gradient(
+90deg,
+#111827,
+#1E3A8A
+);
+color:white;
+font-size:18px;
+font-weight:bold;
+">
+● LIVE AI ANALYTICS ENGINE ACTIVE
+</div>
+""", unsafe_allow_html=True)
 
 # LOAD CSV FILES
 analytics_df = pd.read_csv("analytics.csv")
