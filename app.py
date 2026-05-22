@@ -133,7 +133,7 @@ behavior="scroll"
 direction="left"
 scrollamount="8"
 style="
-color:#87CEEB;
+color:#FFFFFF;
 font-size:16px;
 font-weight:bold;
 padding:10px;
